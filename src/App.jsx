@@ -20,6 +20,12 @@ function App() {
       setUndotext((prev)=> [...prev,text])
       setRedotext([])
   }
+
+  const handlekeydown=(e)=>{
+      console.log(e)
+  }
+
+  // window.addEventListener("keydown",handlekeydown )
   
 
   const handleUndo=()=>{
@@ -46,11 +52,21 @@ function App() {
   return (
     <> 
       <div>
-        <textarea name="" ref={boxRef} value={text} onChange={(e)=>{handleChange(e.target.value)}} id="">
+        <textarea name="" ref={boxRef} value={text}
+            onKeyDown={(e)=>{
+                if(e.ctrlKey && e.key.toLowerCase() ==="z"){
+                  handleUndo()   
+                }
+                if(e.ctrlKey && e.key.toLowerCase() ==="y"){
+                  handleRedo()   
+                }
+              }
+            }
+        onChange={(e)=>{handleChange(e.target.value)}} id="">
         
       </textarea>
       <div className='divButton'>
-       <button onClick={()=>{handleUndo()}} onK>undo</button>
+       <button onClick={()=>{handleUndo()}}>undo</button>
        <button onClick={()=>{handleRedo()}}>redo</button>
       </div>
       
